@@ -1,5 +1,3 @@
-
-
 **Cosign – COSE Sign1 API Backend with Python Verifier**
 ========================================================
 
@@ -144,5 +142,3 @@ Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQL
 *   GitHub: [aadityaverma2011](https://github.com/aadityaverma2011)
     
 *   LinkedIn: [aaditya-verma](https://linkedin.com/in/aaditya-verma-661105266)
-    
-
