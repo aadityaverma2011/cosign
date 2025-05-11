@@ -31,46 +31,80 @@ This project is designed to support secure document issuance workflows, such as 
 *   **Verification Tooling**: Built using pycose, cbor2, and requests.
     
 
-**API Implementation Plan – Feature Checklist**
------------------------------------------------
+### **3\. Python Verifier (Located in /verification-python)**
 
-StepDescriptionStatus**1\. API Endpoint**Exposes /coseSign via a Spring Boot REST controller.✅**2\. Request Handling**Parses JSON input, Base64URL-decodes COSE fields, and decodes headers using CBOR.✅**3\. Key Selection**Extracts kid from headers and fetches corresponding key from the in-memory store.✅**4\. COSE Signing**Constructs the COSE Sig\_structure and signs using ECDSA.✅**5\. Response Formation**Returns Base64URL-encoded COSE\_Sign1 message along with a timestamp.✅**6\. Error Handling**Returns structured error responses for invalid inputs, key lookup failures, etc.✅
+| Step | Description                                                                 | Status |
+|------|-----------------------------------------------------------------------------|--------|
+| 1. API Endpoint      | Exposes `/coseSign` via a Spring Boot REST controller.             | ✅     |
+| 2. Request Handling  | Parses JSON input, Base64URL-decodes COSE fields, and decodes headers using CBOR. | ✅     |
+| 3. Key Selection     | Extracts `kid` from headers and fetches the corresponding key from the in-memory store. | ✅     |
+| 4. COSE Signing      | Constructs the COSE `Sig_structure` and signs using ECDSA.          | ✅     |
+| 5. Response Formation| Returns Base64URL-encoded `COSE_Sign1` message along with a timestamp. | ✅     |
+| 6. Error Handling    | Returns structured error responses for invalid inputs, key lookup failures, etc. | ✅     |
 
 **Backend API Specification**
 -----------------------------
 
 ### **Endpoint**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   POST /coseSign   `
+`   POST /coseSign   `
 
 ### **Request Headers**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Content-Type: application/json   `
+`   Content-Type: application/json   `
 
 ### **Request Body Example**
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "id": "req-1",    "version": "1.0",    "requesttime": "2025-05-11T12:00:00Z",    "metadata": {},    "request": {      "cosePayload": "",      "applicationId": "test-app",      "referenceId": "ref-001",      "coseProtectedHeader": "",      "coseUnprotectedHeader": ""    }  }   `
+```http   
+{
+"id": "req-1",
+"version": "1.0",
+"requesttime": "2025-05-11T12:00:00Z",
+"metadata": {},
+"request": {
+    "cosePayload": "",
+    "applicationId": "test-app",
+    "referenceId": "ref-001",
+    "coseProtectedHeader": "",
+     "coseUnprotectedHeader": ""
+}
+}
+```
 
 ### **Response Body Example**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "id": "req-1",    "version": "1.0",    "responsetime": "2025-05-11T12:01:00Z",    "metadata": {},    "response": {      "coseSignedData": "",      "timestamp": "2025-05-11T12:01:00Z"    },    "errors": []  }   `
+```http   
+{
+"id": "req-1",
+"version": "1.0",
+"responsetime": "2025-05-11T12:01:00Z",
+"metadata": {},
+"response": {
+    "coseSignedData": "",
+    "timestamp": "2025-05-11T12:01:00Z"
+},
+"errors": []
+}
+```
 
 **Python Verifier**
 -------------------
 
 ### **Location**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   /verification-python   `
+`   /verification-python   `
 
 ### **Dependencies**
 
 Defined in requirements.txt:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   requests==2.31.0  cbor2==5.6.0  pycose==1.0.1   `
+`   requests==2.31.0  cbor2==5.6.0  pycose==1.0.1   `
 
 ### **Execution Instructions**
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   cd verification-python  pip install -r requirements.txt  python verify_cose_sign.py   `
+```cmd   
+cd verification-python
+pip install -r requirements.txt
+python verify_cose_sign.py
+```
 
 ### **Verifier Flow**
 
@@ -86,8 +120,21 @@ Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQL
     
 
 ### **Sample Output**
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Encoded Inputs:    cosePayload: omRuYW1lZUFsaWNlY2RvYmoxOTkwLTAxLTAx    coseProtectedHeader: ogEmBEMxMjM    coseUnprotectedHeader: oA  Sending request to /coseSign...  Received COSE signature from API.  Public key loaded:    x = 58b1a7...    y = 3ec18a...  Verifying signature...  COSE signature is VALID.  Decoded COSE payload:  {    "name": "Alice",    "dob": "1990-01-01"  }   `
+```output   
+Encoded Inputs:
+cosePayload: omRuYW1lZUFsaWNlY2RvYmoxOTkwLTAxLTAx
+coseProtectedHeader: ogEmBEMxMjM
+coseUnprotectedHeader: oA
+Sending request to /coseSign...
+Received COSE signature from API.
+Public key loaded:
+ x = 58b1a7...
+ y = 3ec18a...
+Verifying signature...
+COSE signature is VALID.
+Decoded COSE payload:
+{    "name": "Alice",    "dob": "1990-01-01"  }
+```
 
 **Internal Logic Overview**
 ---------------------------
