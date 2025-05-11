@@ -41,7 +41,7 @@ This project is designed to support secure document issuance workflows, such as 
 
 *   Upon startup, the backend automatically generates a public-private EC key pair.
     
-*   ec\_public\_key.txt
+*   ec\_public\_key.txt (this is done only to verify the project is working as intended. Only for testing purposes , can be removed in the production)
     
 
 
