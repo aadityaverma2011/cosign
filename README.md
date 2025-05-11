@@ -70,7 +70,7 @@ This project is designed to support secure document issuance workflows, such as 
 *   **Verification Tooling**: Built using pycose, cbor2, and requests.
     
 
-### **3\. Python Verifier (Located in /verification-python)**
+### **3\. Features Checklist**
 
 | Step | Description                                                                 | Status |
 |------|-----------------------------------------------------------------------------|--------|
