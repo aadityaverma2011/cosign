@@ -8,6 +8,43 @@ The Cosign project implements a secure backend service for generating cryptograp
 
 This project is designed to support secure document issuance workflows, such as **mDoc (mobile document) issuance**, by allowing applications to delegate signing operations to a centralized key-managed service without exposing private keys.
 
+### **How to Run the Spring Boot Backend**
+
+#### **Prerequisites**
+
+*   Java 17 or higher
+    
+*   Maven 3.6+
+    
+*   Internet connection (for dependency resolution on first run)
+    
+
+#### **Steps**
+
+1.  git clone https://github.com/aadityaverma2011/cosign.git
+2.  `cd cosign`
+    
+3.  `cd keymanager`
+    
+4.  mvn clean install
+    
+5.  mvn spring-boot:run
+    
+6.  **Expected Output**
+    
+    *   The application starts on http://localhost:8080
+        
+    *   ```✅ Public key written to ec\_public\_key.txtTomcat started on port 8080 (http)```
+        
+
+#### **Public Key Output**
+
+*   Upon startup, the backend automatically generates a public-private EC key pair.
+    
+*   ec\_public\_key.txt
+    
+
+
 **Project Structure**
 ---------------------
 
